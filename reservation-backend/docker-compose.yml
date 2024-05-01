@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  db-reservation:
+    image: postgres:alpine
+    ports:
+      - "5435:5432"
+    container_name: "db-postgres-reservation"
+    restart: always
+    environment:
+      POSTGRES_USER: "kaue"
+      POSTGRES_PASSWORD: "123"
