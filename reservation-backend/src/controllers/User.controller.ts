@@ -1,6 +1,8 @@
 import { UserRepository } from "../database/User.repository";
 import { Request, Response } from "express";
 import HttpStatusCode from "../utils/enum/HttpStatusCode";
+import bcrypt from "bcrypt";
+import { userValidation }from "../validations/User.validation";
 
 export class UserController {
     private userRepository: UserRepository;
@@ -11,6 +13,9 @@ export class UserController {
 
     public createUsers = async (request: Request, response: Response) => {
         try {
+            await userValidation.validate(request.body);
+            const hashPassword = await bcrypt.hash(request.body.password, 10);
+            request.body.password = hashPassword;
             const user = await this.userRepository.createUser(request.body);
             response.status(HttpStatusCode.CREATED).send(user);
         } catch (error) {
@@ -48,7 +53,7 @@ export class UserController {
     public deleteUserById = async (request: Request, response: Response) => {
         try {
             const user = await this.userRepository.deleteUser(request.params.id);
-                response.status(HttpStatusCode.NO_CONTENT).send("Usuário excluído com sucesso!");
+            response.status(HttpStatusCode.NO_CONTENT).send("Usuário excluído com sucesso!");
         } catch (error) {
             response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send("Não foi possível encontrar o usuário.");
         }
