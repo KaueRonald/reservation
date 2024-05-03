@@ -2,13 +2,16 @@ import { UserRepository } from "../database/User.repository";
 import { Request, Response } from "express";
 import HttpStatusCode from "../utils/enum/HttpStatusCode";
 import bcrypt from "bcrypt";
-import { userValidation }from "../validations/User.validation";
+import { userValidation } from "../validations/User.validation";
+import UserServices from "../services/UserService";
 
 export class UserController {
     private userRepository: UserRepository;
+    private userService: UserServices
 
     constructor() {
         this.userRepository = new UserRepository();
+        this.userService = new UserServices();
     }
 
     public createUsers = async (request: Request, response: Response) => {
@@ -41,6 +44,19 @@ export class UserController {
         }
     }
 
+    public getUsersByEmail = async (request: Request, response: Response) => {
+        try {
+            const user = await this.userRepository.getUserByEmail(request.params.email);
+            if (!user) {
+                response.status(HttpStatusCode.NOT_FOUND).send("usuário não encontrado");
+            } else {
+                response.status(HttpStatusCode.OK).send(user);
+            }
+        } catch (error) {
+            response.status(HttpStatusCode.NOT_FOUND).send(error);
+        }
+    }
+
     public updateUserById = async (request: Request, response: Response) => {
         try {
             const user = await this.userRepository.updateUser(request.params.id, request.body);
@@ -56,6 +72,22 @@ export class UserController {
             response.status(HttpStatusCode.NO_CONTENT).send("Usuário excluído com sucesso!");
         } catch (error) {
             response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send("Não foi possível encontrar o usuário.");
+        }
+    }
+
+    public LoginUser = async (request: Request, response: Response) => {
+        const user = request.body
+        try {
+            return response
+                .status(HttpStatusCode.OK)
+                .send(
+                    await this.userService.verifyUserCredentials(
+                        user.email,
+                        user.password,
+                    ),
+                );
+        } catch (error) {
+            response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send(error);
         }
     }
 }
