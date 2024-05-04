@@ -37,7 +37,14 @@ export class UserController {
 
     public getUsersById = async (request: Request, response: Response) => {
         try {
-            const user = await this.userRepository.getUserById(request.params.id);
+            const ServiceId = await request.params.id
+            if (!ServiceId) {
+                return response.status(HttpStatusCode.BAD_REQUEST).send("O id não foi fornecido.");
+            }
+            const user = await this.userRepository.getUserById(ServiceId);
+            if (!user) {
+                return response.status(HttpStatusCode.NOT_FOUND).send("Usuário não encontrado.");
+            }
             response.status(HttpStatusCode.OK).send(user);
         } catch (error) {
             response.status(HttpStatusCode.NOT_FOUND).send(error);
