@@ -42,7 +42,7 @@ export class UserRepository {
         return user;
     }
 
-    public async getUserByEmail(email: string) {
+    public async getCredencialsLogin(email: string) {
         const user = await prisma.user.findUnique({
             where: { email }
         });

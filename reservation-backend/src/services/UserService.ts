@@ -11,7 +11,7 @@ export default class UserServices {
     }
 
     public verifyUserCredentials = async (email: string, password: string) => {
-        const user = await this.repository.getUserByEmail(email);
+        const user = await this.repository.getCredencialsLogin(email);
         if (!user) {
             throw {
                 status: HttpStatusCode.NOT_FOUND,
