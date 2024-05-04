@@ -44,21 +44,11 @@ export class UserController {
         }
     }
 
-    public getUsersByEmail = async (request: Request, response: Response) => {
-        try {
-            const user = await this.userRepository.getUserByEmail(request.params.email);
-            if (!user) {
-                response.status(HttpStatusCode.NOT_FOUND).send("usuário não encontrado");
-            } else {
-                response.status(HttpStatusCode.OK).send(user);
-            }
-        } catch (error) {
-            response.status(HttpStatusCode.NOT_FOUND).send(error);
-        }
-    }
-
     public updateUserById = async (request: Request, response: Response) => {
         try {
+            await userValidation.validate(request.body);
+            const hashPassword = await bcrypt.hash(request.body.password, 10);
+            request.body.password = hashPassword;
             const user = await this.userRepository.updateUser(request.params.id, request.body);
             response.status(HttpStatusCode.OK).send(user);
         } catch (error) {
