@@ -13,6 +13,9 @@ UserRoutes.post("/login", new UserController().LoginUser);
 
 //Service Routes
 UserRoutes.post("/createservice", new ServiceController().createServices);
-
+UserRoutes.get("/getallservices", new ServiceController().getAllServices);
+UserRoutes.get("/getservice/:id", new ServiceController().getServicesById);
+UserRoutes.put("/updateservice/:id", new ServiceController().updateServiceById);
+UserRoutes.delete("/deleteservice/:id", new ServiceController().deleteServiceById);
 
 
