@@ -24,6 +24,8 @@ export class UserRepository {
                 email: true,
                 role: true,
                 createdAt: true,
+                services: true,
+                schedule: true
             }
         });
         return users;
@@ -37,6 +39,8 @@ export class UserRepository {
                 email: true,
                 role: true,
                 createdAt: true,
+                services: true,
+                schedule: true
             }
         });
         return user;
@@ -63,7 +67,11 @@ export class UserRepository {
     }
 
     public async deleteUser(id: string) {
-        const user = await prisma.user.delete({ where: { id } });
+        const user = await prisma.user.delete({
+            where: {
+                id: id
+            }
+        });
         return user;
     }
 }
