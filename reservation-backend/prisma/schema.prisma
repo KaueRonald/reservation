@@ -18,6 +18,24 @@ enum Role {
   PROVIDER
 }
 
+enum Type {
+  Manicure
+  Pedicure
+  Massagem
+  Cabeleireiro
+  Estetica
+  Depilacao
+  Maquiagem
+  Bronzeamento
+  Design_de_sobrancelhas
+}
+
+enum Status {
+  Agendado
+  Confirmado
+  Cancelado
+}
+
 model User {
   id        String     @id @default(uuid())
   name      String
@@ -34,7 +52,7 @@ model User {
 model Service {
   id          String     @id @default(uuid())
   name        String
-  type        String
+  type        Type
   description String
   createdAt   DateTime   @default(now())
   price       Int
