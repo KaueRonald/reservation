@@ -1,5 +1,6 @@
 import { UserController } from "../controllers/User.controller";
 import { ServiceController } from "../controllers/Service.controller";
+import { ScheduleController } from "../controllers/Schedule.controller";
 import { Router } from "express";
 
 export const UserRoutes = Router();
@@ -18,4 +19,9 @@ UserRoutes.get("/getservice/:id", new ServiceController().getServicesById);
 UserRoutes.put("/updateservice/:id", new ServiceController().updateServiceById);
 UserRoutes.delete("/deleteservice/:id", new ServiceController().deleteServiceById);
 
-
+//Schedule Routes
+UserRoutes.post("/createschedule", new ScheduleController().createSchedule);
+UserRoutes.get("/getallschedules", new ScheduleController().GetAllSchedules);
+UserRoutes.get("/getschedule/:id", new ScheduleController().GetScheduleById);
+UserRoutes.put("/updateschedule/:id", new ScheduleController().UpdateScheduleById);
+UserRoutes.delete("/deleteschedule/:id", new ScheduleController().DeleteScheduleById);
