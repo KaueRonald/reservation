@@ -27,10 +27,13 @@ export class ServiceController {
                 const serviceData = request.body;
                 const decoded = jwt.verify(token, `${process.env.TOKEN_KEY}`) as TokenPayload;
                 const service = await this.serviceRepository.createService(serviceData, decoded.userId.toString());
-                response.status(HttpStatusCode.OK).json(service);
+                if (!service) {
+                    return response.status(HttpStatusCode.BAD_REQUEST).send("Todos os campos obrigatórios devem ser fornecidos");
+                }
+                response.status(HttpStatusCode.OK).send(service);
             });
         } catch (error) {
-            response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send(error);
+            response.status(HttpStatusCode.BAD_REQUEST).send("não foi possível criar");
         }
     }
 
@@ -62,7 +65,10 @@ export class ServiceController {
     public updateServiceById = async (request: Request, response: Response) => {
         try {
             const service = await this.serviceRepository.updateService(request.params.id, request.body);
-            response.status(HttpStatusCode.OK).send(service)
+            if (!service){
+                return response.status(HttpStatusCode.BAD_REQUEST).send("todos os campos devem ser preenchidos");
+            }
+                response.status(HttpStatusCode.OK).send(service)
         } catch (error) {
             response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send("erro a atualizar o serviço.")
         }

@@ -4,6 +4,10 @@ import { Service } from '@prisma/client'
 export class ServiceRepository {
 
     public createService = async (data: Service, id: string) => {
+
+        if (!data.name || !data.description || !data.price || !data.type || !id) {
+            return null;
+        }
         const service = await prisma.service.create({
             data: {
                 name: data.name,
@@ -31,6 +35,10 @@ export class ServiceRepository {
     }
 
     public updateService = async (id: string, data: Service) => {
+
+        if (!data.name || !data.description || !data.price || !data.type || !id) {
+            return null;
+        }
         const service = await prisma.service.update({
             where: {
                 id: id
