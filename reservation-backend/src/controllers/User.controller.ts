@@ -65,10 +65,21 @@ export class UserController {
 
     public deleteUserById = async (request: Request, response: Response) => {
         try {
+            const verifyUser = await this.userRepository.getUserById(request.params.id)
+            if (verifyUser == null) {
+                response.status(HttpStatusCode.BAD_REQUEST).send("Não foi possível encontrar o usuário.")
+                return;
+            } else if (verifyUser.services.length > 0) {
+                response.status(HttpStatusCode.BAD_REQUEST).send("Não pode excluir esse usuário pois ele possui serviços ativos")
+                return;
+            } else if (verifyUser.schedule.length > 0) {
+                response.status(HttpStatusCode.BAD_REQUEST).send("Não pode excluir esse usuário pois ele possui agendamentos ativos")
+                return;
+            }
             const user = await this.userRepository.deleteUser(request.params.id);
-            response.status(HttpStatusCode.NO_CONTENT).send("Usuário excluído com sucesso!");
+            response.status(HttpStatusCode.OK).send("Usuário excluído com sucesso!");
         } catch (error) {
-            response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send("Não foi possível encontrar o usuário.");
+            response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send("erro na solicitação.");
         }
     }
 
