@@ -1,4 +1,5 @@
 import { ServiceRepository } from "../database/Service.repository";
+import { ServiceServices } from "../services/ServiceService";
 import { VerifyRole } from "../middlewares/VerifyUserRole"
 import { Request, Response } from "express"
 import HttpStatusCode from "../utils/enum/HttpStatusCode";
@@ -10,9 +11,11 @@ interface TokenPayload extends JwtPayload {
 
 export class ServiceController {
     private serviceRepository: ServiceRepository;
+    private serviceServices: ServiceServices;
 
     constructor() {
         this.serviceRepository = new ServiceRepository();
+        this.serviceServices = new ServiceServices();
     }
 
     public createServices = async (request: Request, response: Response) => {
@@ -38,48 +41,34 @@ export class ServiceController {
     }
 
     public getAllServices = async (request: Request, response: Response) => {
-        try {
-            const service = await this.serviceRepository.getAllServices();
-            response.status(HttpStatusCode.OK).send(service);
-        } catch (error) {
-            response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send(error);
-        }
+        const users = await this.serviceServices.getService();
+        response.status(HttpStatusCode.OK).send(users);
     }
 
     public getServicesById = async (request: Request, response: Response) => {
         try {
-            const serviceid = await request.params.id
-            if (!serviceid) {
-                return response.status(HttpStatusCode.BAD_REQUEST).send("O id não foi fornecido.");
-            }
-            const service = await this.serviceRepository.getServiceById(serviceid);
-            if (!service) {
-                return response.status(HttpStatusCode.NOT_FOUND).send("Serviço não encontrado.");
-            }
+            const service = await this.serviceServices.getServiceById(request.params.id)
             response.status(HttpStatusCode.OK).send(service);
         } catch (error) {
-            response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send(error);
+            response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send(error instanceof Error ? error.message : "Erro na solicitação.");
         }
     }
 
     public updateServiceById = async (request: Request, response: Response) => {
         try {
-            const service = await this.serviceRepository.updateService(request.params.id, request.body);
-            if (!service){
-                return response.status(HttpStatusCode.BAD_REQUEST).send("todos os campos devem ser preenchidos");
-            }
+                const service = await this.serviceServices.updateService(request.params.id, request.body);
                 response.status(HttpStatusCode.OK).send(service)
         } catch (error) {
-            response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send("erro a atualizar o serviço.")
+            response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send(error instanceof Error ? error.message : "Erro na solicitação")
         }
     }
 
     public deleteServiceById = async (request: Request, response: Response) => {
         try {
-            const service = await this.serviceRepository.deleteService(request.params.id);
+            const service = await this.serviceServices.deleteService(request.params.id);
             response.status(HttpStatusCode.OK).send("serviço deletado com sucesso!");
         } catch (error) {
-            response.status(HttpStatusCode.BAD_REQUEST).send("Não foi possível excluir o serviço")
+            response.status(HttpStatusCode.BAD_REQUEST).send(error instanceof Error ? error.message : "Erro ao excluir");
         }
     }
 }
