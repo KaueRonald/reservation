@@ -28,7 +28,7 @@ export class ScheduleController {
             const schedule = await this.ScheduleRepository.createSchedules(request.body, decoded.userId.toString())
             response.status(HttpStatusCode.OK).json(schedule)
         } catch (error) {
-            response.status(HttpStatusCode.BAD_REQUEST).send("erro no agendamento")
+            response.status(HttpStatusCode.BAD_REQUEST).send("dados inválidos")
         }
     }
 

@@ -61,6 +61,8 @@ export class UserRepository {
                 email: true,
                 role: true,
                 createdAt: true,
+                services: true,
+                schedule: true
             }
         });
         return user;
