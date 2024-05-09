@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import HttpStatusCode from "../utils/enum/HttpStatusCode";
 import { ScheduleRepository } from "../database/Schedule.repository";
+import { ScheduleServices } from "../services/ScheduleService";
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { scheduleValidation, scheduleValidationUpdate } from "../validations/Schedule.validation";
 
@@ -10,9 +11,11 @@ interface TokenPayload extends JwtPayload {
 
 export class ScheduleController {
     private ScheduleRepository: ScheduleRepository;
+    private scheduleService: ScheduleServices;
 
     constructor() {
-        this.ScheduleRepository = new ScheduleRepository
+        this.ScheduleRepository = new ScheduleRepository()
+        this.scheduleService = new ScheduleServices()
     }
 
     public createSchedule = async (request: Request, response: Response) => {
@@ -33,27 +36,22 @@ export class ScheduleController {
     }
 
     public GetAllSchedules = async (request: Request, response: Response) => {
-        try {
-            const schedule = await this.ScheduleRepository.getAllSchedules();
-            response.status(HttpStatusCode.OK).send(schedule);
-        } catch (error) {
-            response.status(HttpStatusCode.BAD_REQUEST).send("erro na requisição");
-        }
+        const schedules = await this.scheduleService.getSchedule();
+        response.status(HttpStatusCode.OK).send(schedules);
     }
 
     public GetScheduleById = async (request: Request, response: Response) => {
         try {
-            const schedule = await this.ScheduleRepository.getScheduleById(request.params.id);
+            const schedule = await this.scheduleService.getScheduleById(request.params.id);
             response.status(HttpStatusCode.OK).send(schedule);
         } catch (error) {
-            response.status(HttpStatusCode.BAD_REQUEST).send("erro na requisição");
+            response.status(HttpStatusCode.BAD_REQUEST).send(error instanceof Error ? error.message : "Solicitação não realizada");
         }
     }
 
     public UpdateScheduleById = async (request: Request, response: Response) => {
         try {
-            await scheduleValidationUpdate.validate(request.body)
-            const schedule = await this.ScheduleRepository.updateSchedule(request.params.id, request.body);
+           const schedule = await this.scheduleService.updateSchedule(request.params.id, request.body);
             response.status(HttpStatusCode.OK).send(schedule);
         } catch (error) {
             response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send("verifque todos os campos");
@@ -62,10 +60,10 @@ export class ScheduleController {
 
     public DeleteScheduleById = async (request: Request, response: Response) => {
         try {
-            const schedule = await this.ScheduleRepository.deleteSchedule(request.params.id);
+            const schedule = await this.scheduleService.deleteSchedule(request.params.id);
             response.status(HttpStatusCode.OK).send("Agendamento cancelado");
         } catch (error) {
-            response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send("Não foi possível encontrar o agendamento");
+            response.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send(error instanceof Error ? error.message : "Exclusão não concluída");
         }
     }
 }
