@@ -1,0 +1,798 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de agendamento de horários",
+        "description": "Essa é uma API de agendamento de horários para tipos de serviços de beleza, cabeleireiro, massagem, manicure etc...",
+        "contact": {
+            "name": "Support",
+            "url": "https://kaueronald.vercel.app/",
+            "email": "kaueronald21.kr@gmail.com"
+        },
+        "x-logo": {
+            "url": "https://mobiler.com.br/2020/wp-content/uploads/2021/06/APIs-1024x572.webp"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/createuser": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Criação de um usuário",
+                "requestBody": {
+                    "description": "Dados necessários para cadastro do usuário",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestUser"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Cadastro realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseUser"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Dados inválidos"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Login de um usuário",
+                "requestBody": {
+                    "description": "Dados necessários para login do usuário",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestLoginUser"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseLoginUser"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Dados inválidos"
+                    }
+                }
+            }
+        },
+        "/getallusers": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Busca todos os usuários cadastrados",
+                "responses": {
+                    "200": {
+                        "description": "todos os usuários",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ResponseUser"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição não completada"
+                    }
+                }
+            }
+        },
+        "/getuserbyid/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Buscando usuário por id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseUser"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição não completada"
+                    }
+                }
+            }
+        },
+        "/updateuser/{id}": {
+            "put": {
+                "tags": [
+                    "user"
+                ],
+                "description": "Atualizando usuário por id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Dados necessários para atualizar o usuário",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestUser"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Atualização realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseUser"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Dados inválidos"
+                    }
+                }
+            }
+        },
+        "/deleteuser/{id}": {
+            "delete": {
+                "tags": [
+                    "user"
+                ],
+                "description": "deletando usuário por id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário excluído com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseUserDelete"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "erro na solicitação."
+                    }
+                }
+            }
+        },
+        "/createservice": {
+            "post": {
+                "tags": [
+                    "service"
+                ],
+                "description": "Criação de um serviço",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "description": "Dados necessários para criação de um serviço",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestService"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Cadastro realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseService"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Dados inválidos"
+                    }
+                }
+            }
+        },
+        "/getallservices": {
+            "get": {
+                "tags": [
+                    "service"
+                ],
+                "description": "Busca todos os serviços cadastrados",
+                "responses": {
+                    "200": {
+                        "description": "todos os serviços",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ResponseService"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição não completada"
+                    }
+                }
+            }
+        },
+        "/getservice/{id}": {
+            "get": {
+                "tags": [
+                    "service"
+                ],
+                "description": "Buscando serviço por id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Serviço encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseService"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição não completada"
+                    }
+                }
+            }
+        },
+        "/updateservice/{id}": {
+            "put": {
+                "tags": [
+                    "service"
+                ],
+                "description": "Atualizando serviço por id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Dados necessários para atualizar o serviço",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestService"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Atualização realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseService"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Dados inválidos"
+                    }
+                }
+            }
+        },
+        "/deleteservice/{id}": {
+            "delete": {
+                "tags": [
+                    "service"
+                ],
+                "description": "deletando serviço por id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Serviço excluído com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseServiceDelete"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "erro na solicitação."
+                    }
+                }
+            }
+        },
+        "/createschedule": {
+            "post": {
+                "tags": [
+                    "agendamento"
+                ],
+                "description": "Criação de um agendamento",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "description": "Dados necessários para criação de um agendamento",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestSchedule"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Agendamento realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseSchedule"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Dados inválidos"
+                    }
+                }
+            }
+        },
+        "/getallschedules": {
+            "get": {
+                "tags": [
+                    "agendamento"
+                ],
+                "description": "Busca todos os agendamentos cadastrados",
+                "responses": {
+                    "200": {
+                        "description": "todos os agendamentos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ResponseSchedule"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição não completada"
+                    }
+                }
+            }
+        },
+        "/getschedule/{id}": {
+            "get": {
+                "tags": [
+                    "agendamento"
+                ],
+                "description": "Buscando agendamento por id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "agendamento encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseSchedule"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Requisição não completada"
+                    }
+                }
+            }
+        },
+        "/updateschedule/{id}": {
+            "put": {
+                "tags": [
+                    "agendamento"
+                ],
+                "description": "Atualizando agendamento por id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Dados necessários para atualizar o agendamento",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RequestUpdateSchedule"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Atualização realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseSchedule"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Dados inválidos"
+                    }
+                }
+            }
+        },
+        "/deleteschedule/{id}": {
+            "delete": {
+                "tags": [
+                    "agendamento"
+                ],
+                "description": "deletando agendamento com id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Agendamento excluído com sucesso!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseAgendarDelete"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "erro na solicitação."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "RequestUser": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Nome do usuário a ser criado",
+                        "example": "Kaue"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email do usuário a ser criado",
+                        "example": "kaue@gmail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "Senha do usuário a ser criado",
+                        "example": "kaue123"
+                    },
+                    "role": {
+                        "type": "string",
+                        "enum": [
+                            "CLIENT",
+                            "PROVIDER"
+                        ],
+                        "description": "tipo do usuário a ser criado"
+                    }
+                }
+            },
+            "ResponseUser": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Nome do usuário a ser criado",
+                        "example": "Kaue"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email do usuário a ser criado",
+                        "example": "kaue@gmail.com"
+                    },
+                    "role": {
+                        "type": "string",
+                        "enum": [
+                            "CLIENT",
+                            "PROVIDER"
+                        ],
+                        "description": "tipo do usuário a ser criado"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Id do usuário criado",
+                        "format": "UUID"
+                    },
+                    "CreatedAt": {
+                        "type": "string",
+                        "description": "Data de criação do usuário",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "ResponseUserDelete": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Mensagem indicando que o usuário foi excluído com sucesso",
+                        "example": "Usuário excluído com sucesso."
+                    }
+                }
+            },
+            "RequestLoginUser": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "Email do usuário a ser criado",
+                        "example": "kaue@gmail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "Senha do usuário a ser criado",
+                        "example": "kaue123"
+                    }
+                }
+            },
+            "ResponseLoginUser": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string",
+                        "description": "Token JWT",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                    }
+                }
+            },
+            "RequestService": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Nome do serviço",
+                        "example": "cabaleireiro jon"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "tipo do serviço",
+                        "example": "barbearia"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "descrição breve",
+                        "example": "barbaearia do jon, cortamos cabelo, barba e bigode"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "description": "preço do serviço",
+                        "example": 70
+                    }
+                }
+            },
+            "ResponseService": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Nome do serviço",
+                        "example": "cabaleireiro jon"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "tipo do serviço",
+                        "example": "barbearia"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "descrição breve",
+                        "example": "barbaearia do jon, cortamos cabelo, barba e bigode"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "description": "preço do serviço",
+                        "example": 70
+                    }
+                }
+            },
+            "ResponseServiceDelete": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Mensagem indicando que o serviço foi excluído com sucesso",
+                        "example": "Serviço excluído com sucesso."
+                    }
+                }
+            },
+            "RequestSchedule": {
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "type": "datetime",
+                        "description": "Data do agendamento",
+                        "example": "2024-05-07T16:00:00Z"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "status do agendamento",
+                        "example": "Agendado"
+                    },
+                    "id_service": {
+                        "type": "string",
+                        "description": "id do serviço que esta sendo agendado.",
+                        "example": "ebd3602c-fd80-4ffe-870b-2f3eca1ef6af"
+                    }
+                }
+            },
+            "RequestUpdateSchedule": {
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "type": "datetime",
+                        "description": "Data do agendamento",
+                        "example": "2024-05-07T16:00:00Z"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "status do agendamento",
+                        "example": "Agendado"
+                    }
+                }
+            },
+            "ResponseSchedule": {
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "type": "datetime",
+                        "description": "Data do agendamento",
+                        "example": "2024-05-07T16:00:00Z"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "status do agendamento",
+                        "example": "Agendado"
+                    },
+                    "id_service": {
+                        "type": "string",
+                        "description": "id do serviço que esta sendo agendado.",
+                        "example": "ebd3602c-fd80-4ffe-870b-2f3eca1ef6af"
+                    }
+                }
+            },
+            "ResponseAgendarDelete": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Mensagem indicando que o Agendamento foi excluído com sucesso",
+                        "example": "Agendamento excluído com sucesso."
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "BearerAuth": {
+                "description": "Autenticação JWT",
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

@@ -53,6 +53,12 @@ export class UserController {
 
     public updateUserById = async (request: Request, response: Response) => {
         try {
+            if (request.body.role === "CLIENT") {
+                const user = await this.userRepository.getUserById(request.params.id);
+                if (user && user.services.length > 0) {
+                    return response.status(HttpStatusCode.FORBIDDEN).send('Usuário com serviços não pode ser definido como CLIENT.');
+                }
+            }
             await userValidation.validate(request.body);
             const hashPassword = await bcrypt.hash(request.body.password, 10);
             request.body.password = hashPassword;
