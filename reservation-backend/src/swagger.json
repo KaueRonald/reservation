@@ -671,7 +671,17 @@
                     "type": {
                         "type": "string",
                         "description": "tipo do serviço",
-                        "example": "barbearia"
+                        "example": "Cabeleireiro",
+                        "enum": [
+                            "Manicure",
+                            "Pedicure",
+                            "Massagem",
+                            "Cabeleireiro",
+                            "Estetica",
+                            "Depilacao",
+                            "Maquiagem",
+                            "Bronzeamento"
+                        ]
                     },
                     "description": {
                         "type": "string",
@@ -751,7 +761,12 @@
                     "status": {
                         "type": "string",
                         "description": "status do agendamento",
-                        "example": "Agendado"
+                        "example": "Agendado",
+                        "enum": [
+                            "Agendado",
+                            "Confirmado",
+                            "Cancelado"
+                        ]
                     }
                 }
             },

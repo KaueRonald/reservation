@@ -27,7 +27,6 @@ enum Type {
   Depilacao
   Maquiagem
   Bronzeamento
-  Design_de_sobrancelhas
 }
 
 enum Status {
