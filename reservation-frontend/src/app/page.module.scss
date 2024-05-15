@@ -1,0 +1,43 @@
+@import "../themes/index.scss";
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; 
+        align-items: center;
+        text-align: center;
+        flex-grow: 1;
+
+        .title {
+            font-weight: 600;
+            color: $text;
+            margin-bottom: 10px;
+            padding: 0 10px;
+        }
+
+        .subtitle {
+            font-weight: 500;
+            color: $principal;
+            background-color: $text;
+            border-radius: 10px;
+            padding: 0 10px;
+            margin: 0px 10px 10px 10px;
+        }
+
+        .btnservice {
+            color: $text;
+            border: 2px solid $text;
+        }
+
+        .btnservice:hover {
+            background-color: $hovers;
+            color: $text;
+            border-color: $text;
+        }
+    }
+}

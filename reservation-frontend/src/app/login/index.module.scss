@@ -1,0 +1,94 @@
+@import "../../themes/index.scss";
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    .containerform {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-grow: 1;
+
+        .form {
+            background-color: $text;
+            border: 2px solid $principal;
+            border-radius: 10px;
+            padding: 20px;
+
+            .title {
+                margin-bottom: 20px;
+                color: $Background-white;
+            }
+
+            .forminputs {
+
+                .input {
+                    margin: 10px;
+                    width: 300px;
+                    background-color: $Background-white;
+                    border-radius: 10px;
+                    color: $principal;
+                }
+
+                .btn {
+                    color: $Background-white;
+                    border-radius: 10px;
+                    border: 2px solid $principal;
+                    margin-bottom: 10px;
+                }
+
+                .btn:hover {
+                    background-color: $hovers;
+                    color: $text;
+                    border-color: $principal;
+                }
+
+                .register {
+                    border-radius: 10px;
+                    background-color: $Background-white;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 5px;
+                    gap: 10px;
+
+                    .btnregister {
+                        color: $text;
+                        border-color: $principal;
+                    }
+
+                    .btnregister:hover {
+                        background-color: $hovers;
+                        color: $text;
+                        border-color: $principal;
+                    }
+                }
+            }
+
+            .forminputs h3 {
+                text-align: left;
+                color: $principal;
+            }
+
+            @media(max-width: 374px) {
+                .forminputs {
+                    .input {
+                        width: 230px;
+                    }
+
+                    .btn {
+                        width: 240px;
+                    }
+
+                    .register {
+                        flex-direction: column;
+                    }
+                }
+            }
+        }
+    }
+}

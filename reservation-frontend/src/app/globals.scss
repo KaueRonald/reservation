@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap');
+@import "../themes/index.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Reddit Sans", sans-serif;
+  font-optical-sizing: auto;
+}
+
+body {
+  background-color: $Background-white;
+}
+
+a{
+  text-decoration: none;
+  color: inherit; 
+}
+
+*::-webkit-scrollbar{
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track{
+  background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb{
+  background-color: $principal;
+  border-radius: 2px;
+}
