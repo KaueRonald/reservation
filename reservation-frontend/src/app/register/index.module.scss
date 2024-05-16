@@ -5,6 +5,15 @@
     flex-direction: column;
     min-height: 100vh;
 
+    .containerregras {
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        .regras {
+            margin: 0px 10px;
+        }
+    }
+
     .iconreturn {
         margin: 15px;
         color: $text;
@@ -19,33 +28,45 @@
 
     .containerform {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
         flex-grow: 1;
 
         .form {
-            background-color: $text;
-            border: 2px solid $principal;
-            border-radius: 10px;
             padding: 20px;
+            border-radius: 10px;
+            border: 2px solid $principal;
+            background-color: $text;
 
             .title {
-                margin-bottom: 20px;
                 color: $Background-white;
             }
 
-            .forminputs {
+            .formInputs {
 
                 .input {
-                    margin: 10px;
-                    width: 300px;
                     background-color: $Background-white;
+                    width: 300px;
                     border-radius: 10px;
-                    color: $principal;
+                    margin-bottom: 10px;
                 }
 
-                .btn {
+                .containerinput2 {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 10px;
+
+                    .input2 {
+                        background-color: $Background-white;
+                        border-radius: 10px;
+                        margin-bottom: 10px;
+                        max-width: 180px;
+                    }
+                }
+
+                .btnregister {
                     color: $Background-white;
                     border-radius: 10px;
                     border: 2px solid $principal;
@@ -53,13 +74,13 @@
                     margin-top: 8px;
                 }
 
-                .btn:hover {
+                .btnregister:hover {
                     background-color: $hovers;
                     color: $text;
                     border-color: $principal;
                 }
 
-                .register {
+                .login {
                     border-radius: 10px;
                     background-color: $Background-white;
                     display: flex;
@@ -69,48 +90,59 @@
                     padding: 5px;
                     gap: 10px;
 
-                    .btnregister {
+                    .btnlogin {
                         color: $text;
                         border-color: $principal;
                     }
 
-                    .btnregister:hover {
+                    .btnlogin:hover {
                         background-color: $hovers;
                         color: $text;
                         border-color: $principal;
                     }
                 }
-            }
 
-            .forminputs h3 {
-                text-align: left;
-                color: $principal;
-            }
+                .login p {
+                    color: $principal;
+                }
 
-            .forminputs p {
-                text-align: left;
-                color: $principal;
-            }
-
-            .forminputs a:hover {
-                color: $Background-white;
-            }
-
-            @media(max-width: 374px) {
-                .forminputs {
+                @media (max-width: 374px) {
                     .input {
-                        width: 230px;
+                        width: 270px;
                     }
 
-                    .btn {
-                        width: 240px;
-                    }
+                    .containerinput2 {
 
-                    .register {
-                        flex-direction: column;
+                        .input2 {
+                            max-width: 150px;
+                        }
                     }
                 }
             }
+
+            .formInputs h3 {
+                text-align: left;
+                color: $principal;
+                margin-bottom: 8px;
+            }
         }
+
+        @media (max-width: 374px) {
+            .form {
+                padding: 12px;
+            }            
+        }
+
+        @media(max-width: 374px) {
+            .formInputs {
+
+                .btnregister {
+                    width: 240px;
+                }
+
+
+            }
+        }
+
     }
 }
