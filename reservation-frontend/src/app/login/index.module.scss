@@ -5,6 +5,18 @@
     flex-direction: column;
     min-height: 100vh;
 
+    .iconreturn {
+        margin: 15px;
+        color: $text;
+        border-color: $principal;
+    }
+
+    .iconreturn:hover {
+        color: $text;
+        border-color: $text;
+        background-color: $hovers;
+    }
+
     .containerform {
         display: flex;
         justify-content: center;
@@ -38,6 +50,7 @@
                     border-radius: 10px;
                     border: 2px solid $principal;
                     margin-bottom: 10px;
+                    margin-top: 8px;
                 }
 
                 .btn:hover {
@@ -72,6 +85,15 @@
             .forminputs h3 {
                 text-align: left;
                 color: $principal;
+            }
+
+            .forminputs p {
+                text-align: left;
+                color: $principal;
+            }
+
+            .forminputs a:hover {
+                color: $Background-white;
             }
 
             @media(max-width: 374px) {
