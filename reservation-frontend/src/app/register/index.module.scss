@@ -1,0 +1,148 @@
+@import "../../themes/index.scss";
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    .containerregras {
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        .regras {
+            margin: 0px 10px;
+        }
+    }
+
+    .iconreturn {
+        margin: 15px;
+        color: $text;
+        border-color: $principal;
+    }
+
+    .iconreturn:hover {
+        color: $text;
+        border-color: $text;
+        background-color: $hovers;
+    }
+
+    .containerform {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-grow: 1;
+
+        .form {
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid $principal;
+            background-color: $text;
+
+            .title {
+                color: $Background-white;
+            }
+
+            .formInputs {
+
+                .input {
+                    background-color: $Background-white;
+                    width: 300px;
+                    border-radius: 10px;
+                    margin-bottom: 10px;
+                }
+
+                .containerinput2 {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 10px;
+
+                    .input2 {
+                        background-color: $Background-white;
+                        border-radius: 10px;
+                        margin-bottom: 10px;
+                        max-width: 180px;
+                    }
+                }
+
+                .btnregister {
+                    color: $Background-white;
+                    border-radius: 10px;
+                    border: 2px solid $principal;
+                    margin-bottom: 10px;
+                    margin-top: 8px;
+                }
+
+                .btnregister:hover {
+                    background-color: $hovers;
+                    color: $text;
+                    border-color: $principal;
+                }
+
+                .login {
+                    border-radius: 10px;
+                    background-color: $Background-white;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 5px;
+                    gap: 10px;
+
+                    .btnlogin {
+                        color: $text;
+                        border-color: $principal;
+                    }
+
+                    .btnlogin:hover {
+                        background-color: $hovers;
+                        color: $text;
+                        border-color: $principal;
+                    }
+                }
+
+                .login p {
+                    color: $principal;
+                }
+
+                @media (max-width: 374px) {
+                    .input {
+                        width: 270px;
+                    }
+
+                    .containerinput2 {
+
+                        .input2 {
+                            max-width: 150px;
+                        }
+                    }
+                }
+            }
+
+            .formInputs h3 {
+                text-align: left;
+                color: $principal;
+                margin-bottom: 8px;
+            }
+        }
+
+        @media (max-width: 374px) {
+            .form {
+                padding: 12px;
+            }            
+        }
+
+        @media(max-width: 374px) {
+            .formInputs {
+
+                .btnregister {
+                    width: 240px;
+                }
+
+
+            }
+        }
+
+    }
+}
