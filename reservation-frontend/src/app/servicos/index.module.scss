@@ -1,0 +1,19 @@
+@import "../../themes/index.scss";
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+
+    .iconreturn {
+        margin: 15px;
+        color: $text;
+        border-color: $principal;
+    }
+
+    .iconreturn:hover {
+        color: $text;
+        border-color: $text;
+        background-color: $hovers;
+    }
+}

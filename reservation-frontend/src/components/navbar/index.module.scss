@@ -19,8 +19,11 @@
             }
 
             .btns {
-                display: flex;
-                gap: 10px;
+
+                .btnscontainer {
+                    display: flex;
+                    gap: 10px;
+                }
 
                 .btn {
                     color: $Background-white;
@@ -32,14 +35,21 @@
                     color: $text;
                 }
             }
+
+            @media(max-width: 754px) {
+                .btns {
+                    display: none;
+                }
+            }
         }
     }
 
-    
+
 
 }
+
 @media(max-width:460px) {
-        .logoname {
-            display: none;
-        }
+    .logoname {
+        display: none;
     }
+}
