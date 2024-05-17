@@ -14,8 +14,8 @@ export default function register() {
     const [name, setname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [role, setRole] = useState("");
-    
+    const [role, setRole] = useState("CLIENT");
+
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -31,6 +31,18 @@ export default function register() {
         toast.error("Preencha todos os campos", { position: "top-center" })
     }
 
+    function ErrorPassword(): undefined {
+        toast.error("Forneça uma senha com pelo menos 6 caracteres", { position: "top-center" })
+    }
+
+    function ErrorEmail(): undefined {
+        toast.error("Esse email ja esta cadastrado!", { position: "top-center" })
+    }
+
+    function NotifyErrorEmailExists(): undefined {
+        toast.error("Falah na verificação de email existente, use outro email", { position: "top-center" })
+    }
+
     const types = [
         {
             value: 'CLIENT',
@@ -43,25 +55,40 @@ export default function register() {
     ];
 
     const handleSubmit = async () => {
+        if (name === "" || email === "" || password === "" || role === "") {
+            return NotifyError()
+        }
+        if (password.length < 6) {
+            return ErrorPassword()
+        }
+        try {
+            const response = await api.get("/getallusers")
+            const users = response.data;
+            const emailExists = users.some((user: { email: string; }) => user.email === email);
 
-        await api.post('/createuser', {
-            name,
-            email,
-            password,
-            role
-        }).then((response) => {
-            setname("");
-            setEmail("");
-            setPassword("");
-            setRole("");
-            NotifySucess();
-            setTimeout(() => {
+            if (emailExists) {
+                return ErrorEmail();
+            }
+            await api.post('/createuser', {
+                name,
+                email,
+                password,
+                role,
+            }).then(() => {
+                setname("");
+                setEmail("");
+                setPassword("");
+                setRole("");
+                NotifySucess();
                 window.location.replace('/login');
-            }, 2000);
-        }).catch((error) => {
-            console.log(error);
-            NotifyError();
-        })
+            }).catch((error) => {
+                console.log(error);
+                NotifyError();
+            })
+
+        } catch (error) {
+            return NotifyErrorEmailExists()
+        }
     }
 
     return (

@@ -28,7 +28,14 @@ export default function Login() {
         toast.error("Suas credenciais estão incorretas!", { position: "top-center" })
     }
 
+    function NotifyCredentials(): undefined {
+        toast.error("Preencha todos os campos!", { position: "top-center" })
+    }
+
     const handleSubmit = async (event: FormEvent) => {
+        if (email === "" || password === "") {
+            return NotifyCredentials()
+        }
         await api.post('/login', {
             email,
             password,
@@ -37,9 +44,7 @@ export default function Login() {
             setEmail("");
             setPassword("");
             NotifySucess();
-            setTimeout(() => {
-                window.location.replace('/');
-            }, 2000);
+            window.location.replace('/');
         }).catch(error => {
             NotifyError();
         })
@@ -101,7 +106,7 @@ export default function Login() {
                                 ),
                             }}
                         />
-                        <p><a href="/">Esqueci a senha</a></p>
+                        {/* <p><a href="/">Esqueci minha senha</a></p> */}
                         <Button className={styles.btn} onClick={handleSubmit} >Login</Button>
                         <Box className={styles.register}>
                             <p>Não tem uma conta?</p>
