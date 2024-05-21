@@ -18,24 +18,6 @@
                 margin: 10px 10px 10px 0;
             }
 
-            .btns {
-
-                .btnscontainer {
-                    display: flex;
-                    gap: 10px;
-                }
-
-                .btn {
-                    color: $Background-white;
-                    border-color: $principal;
-                }
-
-                .btn:hover {
-                    background-color: $hovers;
-                    color: $text;
-                }
-            }
-
             @media(max-width: 754px) {
                 .btns {
                     display: none;
@@ -44,12 +26,4 @@
         }
     }
 
-
-
-}
-
-@media(max-width:460px) {
-    .logoname {
-        display: none;
-    }
 }
