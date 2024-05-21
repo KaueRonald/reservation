@@ -1,0 +1,53 @@
+@import "../../themes/index.scss";
+
+.container {
+    display: flex;
+
+}
+
+.open {
+    cursor: pointer;
+}
+
+.close {
+    cursor: pointer;
+}
+
+.confirmDelete {
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    overflow-y: auto;
+    white-space: normal;
+    border: solid 2px $text;
+    background-color: $Background-white;
+    padding: 20px;
+
+    .containerx {
+        display: flex;
+        justify-content: flex-end;
+
+        .iconclose {
+            cursor: pointer;
+        }
+    }
+
+    .btncontainer {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+
+        .btnDelete {
+            color: $text;
+            border-color: $principal;
+        }
+
+        .btnDelete:hover {
+            background-color: $hovers;
+        }
+    }
+}
