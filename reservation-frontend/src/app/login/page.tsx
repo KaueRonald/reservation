@@ -8,6 +8,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { FormEvent, useState } from "react";
 import { api } from "@/services/axiosClient";
 import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
@@ -40,11 +41,11 @@ export default function Login() {
             email,
             password,
         }).then((response) => {
-            sessionStorage.setItem('token', response.data.token);
+            Cookies.set('token', response.data.token)
             setEmail("");
             setPassword("");
             NotifySucess();
-            window.location.replace('/');
+            window.location.replace('/servicos');
         }).catch(error => {
             NotifyError();
         })
