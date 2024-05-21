@@ -1,18 +1,16 @@
 'use client'
-function getStorage(key: string) {
-    if (typeof window !== 'undefined') {
-      return sessionStorage.getItem(key);
-    }
-    return null;
-  }
+import Cookies from 'js-cookie';
 
-function setStorage(key: string, value: any) {
-    sessionStorage.setItem(key, value);
+function getStorage(key: string) {
+  if (typeof window !== 'undefined') {
+    return Cookies.get(key);
+  }
+  return null;
 }
 
 function clearStorage() {
-    sessionStorage.clear();
+  Cookies.remove('token')
 }
 
-export { getStorage, setStorage, clearStorage };
+export { getStorage, clearStorage };
 
