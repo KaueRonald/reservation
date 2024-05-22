@@ -5,15 +5,79 @@
     flex-direction: column;
     min-height: 100vh;
 
-    .iconreturn {
-        margin: 15px;
-        color: $text;
-        border-color: $principal;
+    .services {
+        margin: 30px 20px 0px 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        justify-content: center;
+        gap: 10px;
+        justify-items: center;
+
+        .card {
+            width: 300px;
+            min-height: 200px;
+            max-height: 280px;
+
+            .type {
+                display: flex;
+            }
+
+            .name {
+                margin: 10px 0px 10px 0px;
+                background-color: $text;
+                color: $Background-white;
+                border-radius: 5px;
+                padding: 5px;
+            }
+
+            .description {
+                margin: 10px 0px 10px 0px;
+                background-color: $text;
+                color: $Background-white;
+                border-radius: 5px;
+                padding: 5px;
+            }
+
+            .price {
+                margin: 10px 0px 10px 0px;
+                background-color: $text;
+                color: $Background-white;
+                border-radius: 5px;
+                padding: 5px;
+            }
+
+            .btnDetail {
+                color: $text;
+                border: 2px solid $text;
+            }
+
+            .btnDetail:hover {
+                background-color: $hovers;
+                color: $text;
+                border-color: $text;
+            }
+        }
     }
 
-    .iconreturn:hover {
-        color: $text;
-        border-color: $text;
-        background-color: $hovers;
+    @media(max-width: 1280px) {
+        .services {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+    }
+
+    @media(max-width: 955px) {
+        .services {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media(max-width: 635px) {
+        .services {
+            grid-template-columns: 1fr;
+
+            .card {
+                width: 280px;
+            }
+        }
     }
 }
