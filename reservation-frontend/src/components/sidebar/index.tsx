@@ -10,6 +10,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import PersonIcon from '@mui/icons-material/Person';
 import HomeIcon from '@mui/icons-material/Home';
+import WorkIcon from '@mui/icons-material/Work';
 import { clearStorage, getStorage } from "@/utils/storage";
 import { decodeToken } from "react-jwt";
 
@@ -74,7 +75,7 @@ export const Sidebar = () => {
                         <Link href="/servicos" color="inherit" underline="none">
                             <ListItemButton>
                                 <ListItemIcon>
-                                    <PersonIcon sx={{ color: '#E44141' }} />
+                                    <WorkIcon sx={{ color: '#E44141' }} />
                                 </ListItemIcon>
                                 <ListItemText primary="Serviços" />
                             </ListItemButton>
