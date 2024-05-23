@@ -20,28 +20,29 @@
 
             .type {
                 display: flex;
+                font-weight: 600;
+                color: $text;
             }
 
             .name {
                 margin: 10px 0px 10px 0px;
-                background-color: $text;
-                color: $Background-white;
                 border-radius: 5px;
                 padding: 5px;
             }
 
-            .description {
-                margin: 10px 0px 10px 0px;
-                background-color: $text;
-                color: $Background-white;
-                border-radius: 5px;
-                padding: 5px;
-            }
+            // .description {
+            //     margin: 10px 0px 10px 0px;
+            //     background-color: $text;
+            //     color: $Background-white;
+            //     border-radius: 5px;
+            //     padding: 5px;
+            // }
 
             .price {
                 margin: 10px 0px 10px 0px;
                 background-color: $text;
-                color: $Background-white;
+                color: $principal;
+                font-weight: 600;
                 border-radius: 5px;
                 padding: 5px;
             }
@@ -56,6 +57,10 @@
                 color: $text;
                 border-color: $text;
             }
+        }
+
+        .modal {
+            background-color: $Background-white;
         }
     }
 
@@ -79,5 +84,76 @@
                 width: 280px;
             }
         }
+    }
+
+
+
+}
+
+.containermodal {
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    overflow-y: auto;
+    white-space: normal;
+    border: solid 2px $text;
+    background-color: $Background-white;
+    padding: 10px;
+    min-width: 300px;
+    max-width: 580px;
+
+    .BoxNav {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .btnx {
+            cursor: pointer;
+        }
+    }
+
+    .boxType {
+        display: flex;
+        justify-content: flex-start;
+        font-weight: 600;
+        color: $text;
+    }
+
+    .boxName {
+        font-weight: 600;
+        background-color: $text;
+        border-radius: 10px;
+        font-size: 25px;
+        margin: 10px;
+        color: $principal;
+        padding: 0px 8px;
+    }
+
+    .boxDesc {
+        padding: 20px;
+        font-weight: 600;
+        font-size: 18px;
+        text-align: justify;
+    }
+
+    .boxPrice {
+        display: flex;
+        justify-content: flex-start;
+        font-weight: 600;
+        color: $text;
+    }
+
+    .btnagendar {
+        margin: 10px 0px;
+        color: $text;
+        border: 2px solid $text;
+    }
+
+    .btnagendar:hover {
+        background-color: $hovers;
     }
 }
